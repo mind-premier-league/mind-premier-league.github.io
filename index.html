@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마프리fs | 여성 풋살 동호회</title>
+<meta name="description" content="마프리fs — 즐겁고 따뜻하게, 함께 뛰는 여성 풋살 동호회">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-alt: #f6f7fa;
+    --surface: #fbfbfd;
+    --border: #e6e9f0;
+    --text: #16223f;
+    --text-dim: #5b6a87;
+    --navy: #16223f;
+    --navy-deep: #0e1830;
+    --yellow: #f5b400;
+    --yellow-soft: #fff3d6;
+    --accent: var(--yellow);
+    --pink: #ef6f9b;
+    --green: #2f9e6b;
+    --radius: 12px;
+    --max-width: 960px;
+  }
+
+  html[data-theme="dark"] {
+    --bg: #0b1220;
+    --bg-alt: #111a2c;
+    --surface: #16223a;
+    --border: #263355;
+    --text: #eef1f8;
+    --text-dim: #9aa7bd;
+    --navy: #b9c6e6;
+    --yellow: #ffcd3c;
+    --yellow-soft: #3a3113;
+    --pink: #ff89b3;
+    --green: #4bc98c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+
+  img, svg { display: block; max-width: 100%; }
+
+  button { font-family: inherit; cursor: pointer; }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  html[data-theme="dark"] header { background: rgba(11, 18, 32, 0.92); }
+
+  nav {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand { display: flex; align-items: center; gap: 10px; }
+
+  .emblem {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+    border: 2px solid var(--yellow);
+  }
+
+  .brand-name { font-weight: 800; font-size: 1.05rem; letter-spacing: -0.01em; }
+  .brand-sub { display: block; font-size: 0.72rem; color: var(--text-dim); font-weight: 500; }
+
+  .nav-right { display: flex; align-items: center; gap: 14px; }
+
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a { color: var(--text-dim); font-size: 0.9rem; font-weight: 600; }
+  .nav-links a:hover { color: var(--navy); }
+  html[data-theme="dark"] .nav-links a:hover { color: var(--text); }
+
+  .theme-toggle {
+    width: 36px; height: 36px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .theme-toggle .icon-light { display: none; }
+  html[data-theme="dark"] .theme-toggle .icon-dark { display: none; }
+  html[data-theme="dark"] .theme-toggle .icon-light { display: inline; }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    padding: 6px;
+  }
+  .nav-toggle span { width: 20px; height: 2px; background: var(--text); display: block; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 72px 0 56px;
+    background: linear-gradient(180deg, var(--yellow-soft), transparent 70%);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .hero .emblem-lg {
+    width: 84px; height: 84px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--yellow);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1.9rem;
+    border: 3px solid var(--yellow);
+  }
+
+  .hero h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .hero .tagline { color: var(--text-dim); font-size: 1.02rem; max-width: 480px; margin: 0 auto 24px; }
+
+  .hero-facts {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .fact-pill {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .fact-pill strong { color: var(--navy); }
+  html[data-theme="dark"] .fact-pill strong { color: var(--yellow); }
+
+  /* ---------- Sections ---------- */
+  section { padding: 60px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-label {
+    font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--yellow-dark, var(--navy)); margin-bottom: 6px;
+  }
+  html[data-theme="dark"] .section-label { color: var(--yellow); }
+
+  .section-title { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .section-desc { color: var(--text-dim); font-size: 0.95rem; margin-bottom: 32px; max-width: 560px; }
+
+  /* ---------- Team info ---------- */
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .team-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+
+  .team-card .badge-row { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+  .team-card .badge-row .emblem { width: 56px; height: 56px; font-size: 1.2rem; }
+  .team-card h3 { font-size: 1.15rem; font-weight: 800; }
+  .team-card .founded { color: var(--text-dim); font-size: 0.85rem; }
+
+  .team-card p.desc { color: var(--text-dim); font-size: 0.92rem; }
+
+  .info-list { list-style: none; display: grid; gap: 12px; }
+  .info-list li {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 12px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+  }
+  .info-list .label { color: var(--text-dim); }
+  .info-list .value { font-weight: 700; text-align: right; }
+
+  /* ---------- Schedule ---------- */
+  .month-list {
+    list-style: none;
+    display: grid;
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+
+  .month-list li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+
+  .date-chip {
+    flex-shrink: 0;
+    width: 46px; height: 46px;
+    border-radius: 10px;
+    background: var(--navy);
+    color: #fff;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+  .date-chip .d { font-size: 1.05rem; }
+  .date-chip .w { font-size: 0.62rem; opacity: 0.75; font-weight: 600; }
+
+  .month-list .event-label { font-weight: 700; }
+  .month-list .event-type { color: var(--text-dim); font-size: 0.8rem; }
+
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; flex-shrink: 0; }
+  .dot.practice { background: var(--navy); }
+  html[data-theme="dark"] .dot.practice { background: var(--text); }
+  .dot.birthday { background: var(--pink); }
+  .dot.match { background: var(--yellow); }
+  .dot.outing { background: var(--green); }
+
+  .empty-note { color: var(--text-dim); font-size: 0.88rem; padding: 16px; }
+
+  /* Calendar */
+  .calendar-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+
+  .cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+
+  .cal-title { font-size: 1.05rem; font-weight: 800; }
+
+  .cal-nav { display: flex; gap: 8px; }
+  .cal-nav button {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 0.9rem;
+  }
+  .cal-nav button:hover { border-color: var(--yellow); }
+
+  .cal-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; font-size: 0.78rem; color: var(--text-dim); }
+  .cal-legend span { display: flex; align-items: center; }
+
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+
+  .cal-dow { text-align: center; font-size: 0.75rem; color: var(--text-dim); font-weight: 700; padding-bottom: 6px; }
+
+  .cal-cell {
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.78rem;
+    position: relative;
+  }
+  .cal-cell.empty { border: none; background: transparent; }
+  .cal-cell.today { border-color: var(--yellow); box-shadow: inset 0 0 0 1px var(--yellow); }
+
+  .cal-cell .num { font-weight: 700; }
+  .cal-cell .dots { display: flex; gap: 3px; flex-wrap: wrap; margin-top: auto; }
+  .cal-cell .dots .dot { margin-right: 0; width: 6px; height: 6px; }
+
+  /* ---------- Mini game ---------- */
+  .game-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .game-block:last-child { margin-bottom: 0; }
+
+  .game-title { font-size: 1.05rem; font-weight: 800; margin-bottom: 6px; }
+  .game-help { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 20px; }
+  .game-help strong { color: var(--text); }
+
+  .game-controls { display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+
+  .ctrl-btn {
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .ctrl-btn:hover { border-color: var(--yellow); }
+  .ctrl-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .shoot-btn, .lift-btn {
+    background: var(--navy);
+    color: var(--yellow);
+    border-color: var(--navy);
+    padding: 12px 24px;
+  }
+  .shoot-btn:hover, .lift-btn:hover { opacity: 0.9; border-color: var(--navy); }
+
+  .start-btn {
+    background: var(--yellow);
+    color: var(--navy);
+    border-color: var(--yellow);
+    font-weight: 800;
+    padding: 11px 26px;
+    margin-bottom: 18px;
+  }
+  .start-btn:hover { opacity: 0.9; }
+
+  .game-score { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem; color: var(--text-dim); margin-top: 4px; }
+  .game-score strong { color: var(--text); font-size: 1rem; }
+
+  .reset-link {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-decoration: underline;
+    background: none;
+    border: none;
+  }
+
+  /* Penalty kick stage */
+  .pk-stage {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    height: 230px;
+    margin: 0 auto 18px;
+  }
+
+  .pk-goal {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
+    height: 118px;
+    border: 4px solid var(--navy);
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 14px, var(--border) 14px, var(--border) 15px),
+                repeating-linear-gradient(90deg, transparent, transparent 14px, var(--border) 14px, var(--border) 15px);
+    overflow: visible;
+  }
+  html[data-theme="dark"] .pk-goal { border-color: var(--text); }
+
+  .pk-keeper {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    will-change: left;
+  }
+
+  .pk-target {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 14px;
+    height: 14px;
+  }
+  .pk-target::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--yellow);
+    border-radius: 50%;
+  }
+  .pk-target::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: var(--yellow);
+  }
+
+  .pk-shooter {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.3rem;
+    transition: transform 0.15s ease;
+  }
+  .pk-shooter.kick { transform: translateX(-50%) rotate(-18deg) scale(1.1); }
+
+  .pk-ball {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    font-size: 1.4rem;
+  }
+
+  .pk-result {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .pk-result.show { animation: pkFlash 0.9s ease; }
+  .pk-result.success { color: var(--green); text-shadow: 0 0 14px var(--green); }
+  .pk-result.fail { color: var(--pink); text-shadow: 0 0 14px var(--pink); }
+
+  @keyframes pkFlash {
+    0% { opacity: 0; transform: scale(0.6); }
+    20% { opacity: 1; transform: scale(1.2); }
+    35% { opacity: 0.35; }
+    50% { opacity: 1; }
+    65% { opacity: 0.35; }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: scale(1); }
+  }
+
+  /* Juggling stage */
+  .jg-stage {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    height: 220px;
+    margin: 0 auto 18px;
+    border-bottom: 3px solid var(--border);
+    overflow: hidden;
+  }
+
+  .jg-ball {
+    position: absolute;
+    left: 50%;
+    bottom: 40px;
+    transform: translateX(-50%);
+    font-size: 1.7rem;
+    will-change: bottom;
+  }
+
+  .jg-hitzone {
+    position: absolute;
+    left: 50%;
+    bottom: 32px;
+    transform: translateX(-50%);
+    width: 66px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--yellow-soft);
+  }
+
+  .jg-animal {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    font-size: 2.6rem;
+    transition: transform 0.15s ease;
+  }
+  .jg-animal.hit { transform: translateX(-50%) scale(1.15) rotate(-6deg); }
+  .jg-animal.sad { transform: translateX(-50%) scale(0.95) rotate(6deg); }
+
+  .jg-result {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 1.3rem;
+    font-weight: 900;
+    text-align: center;
+    background: var(--surface);
+    opacity: 0;
+    pointer-events: none;
+    border-radius: 8px;
+  }
+  .jg-result.show { opacity: 1; animation: jgPop 0.4s ease; }
+  .jg-result.success { color: var(--green); }
+  .jg-result.fail { color: var(--pink); }
+  .jg-result small { font-size: 0.75rem; font-weight: 600; color: var(--text-dim); }
+
+  @keyframes jgPop {
+    0% { transform: scale(0.7); }
+    60% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+  }
+
+  /* ---------- Guestbook ---------- */
+  .guestbook-form {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+  }
+
+  .form-row { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; }
+
+  .guestbook-form input,
+  .guestbook-form textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 0.9rem;
+  }
+
+  .guestbook-form textarea { resize: vertical; min-height: 70px; }
+
+  .submit-btn {
+    justify-self: start;
+    padding: 10px 22px;
+    border-radius: 999px;
+    border: none;
+    background: var(--navy);
+    color: var(--yellow);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .submit-btn:hover { opacity: 0.9; }
+
+  .guestbook-list { list-style: none; display: grid; gap: 12px; }
+
+  .msg-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+
+  .msg-head { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.85rem; }
+  .msg-head .msg-name { font-weight: 800; color: var(--navy); }
+  html[data-theme="dark"] .msg-head .msg-name { color: var(--yellow); }
+  .msg-head .msg-date { color: var(--text-dim); font-size: 0.78rem; }
+  .msg-body { color: var(--text); font-size: 0.9rem; }
+
+  .guestbook-note { font-size: 0.78rem; color: var(--text-dim); margin-top: 14px; }
+
+  /* ---------- Contact ---------- */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+
+  .contact-icon {
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    background: var(--navy);
+    color: var(--yellow);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-card .label { font-size: 0.76rem; color: var(--text-dim); margin-bottom: 2px; }
+  .contact-card .value { font-size: 0.92rem; font-weight: 700; word-break: break-all; }
+
+  /* ---------- Footer ---------- */
+  footer { padding: 28px 0; text-align: center; color: var(--text-dim); font-size: 0.8rem; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 760px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    .nav-right { gap: 8px; }
+
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      gap: 14px;
+    }
+
+    section { padding: 44px 0; }
+    .team-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .cal-cell { font-size: 0.68rem; padding: 4px; }
+    .pk-stage { height: 200px; }
+    .pk-goal { height: 96px; }
+    .jg-stage { height: 190px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brand">
+      <span class="emblem">MP</span>
+      <span>
+        <span class="brand-name">마프리fs</span>
+        <span class="brand-sub">여성 풋살 동호회</span>
+      </span>
+    </div>
+    <div class="nav-right">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#team">팀소개</a></li>
+        <li><a href="#schedule">일정</a></li>
+        <li><a href="#minigame">미니게임</a></li>
+        <li><a href="#guestbook">방명록</a></li>
+        <li><a href="#contact">연락처</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="다크 모드 전환">
+        <span class="icon-dark">🌙</span>
+        <span class="icon-light">☀️</span>
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="emblem-lg">MP</div>
+    <h1>마프리fs</h1>
+    <p class="tagline">풋살화 신고 모이면 다 친구!<br>즐겁게 뛰고, 서로 따뜻하게 응원하는 여성 풋살 동호회입니다.</p>
+    <div class="hero-facts">
+      <span class="fact-pill">감독 <strong>김도연</strong></span>
+      <span class="fact-pill">정기운동 <strong>매주 월 19:00–21:00</strong></span>
+      <span class="fact-pill">창단 <strong>2020.06.10</strong></span>
+    </div>
+  </section>
+
+  <!-- Team info -->
+  <section id="team" class="container">
+    <div class="section-label">Team</div>
+    <h2 class="section-title">팀 소개</h2>
+    <p class="section-desc">실력보다 분위기, 승부보다 서로를 먼저 챙기는 팀입니다. 처음 오시는 분도 금방 스며들 수 있어요.</p>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="badge-row">
+          <span class="emblem">MP</span>
+          <div>
+            <h3>마프리fs</h3>
+            <span class="founded">2020.06.10 창단 · 대전광역시</span>
+          </div>
+        </div>
+        <p class="desc">
+          "마프리fs"(Mind Premier League)는 풋살에 대한 관심과 애정이 있는 한 명 한 명의 회원이 모여,
+          즐겁게 운동하는 모임입니다. 운동 실력, 나이, 경력 상관없이 누구나 환영이에요.
+        </p>
+      </div>
+
+      <ul class="info-list">
+        <li><span class="label">감독</span><span class="value">김도연</span></li>
+        <li><span class="label">주장</span><span class="value">김바로본</span></li>
+        <li><span class="label">정기운동일</span><span class="value">매주 월 19:00 – 21:00</span></li>
+        <li><span class="label">활동 장소</span><span class="value">충남대학교 풋살장 (변동가능)</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Schedule -->
+  <section id="schedule" class="container">
+    <div class="section-label">Schedule</div>
+    <h2 class="section-title">일정</h2>
+    <p class="section-desc">이번 달 일정과 연간 캘린더예요. 생일, 정기운동일, 대회, 야유회까지 한눈에 확인하세요.</p>
+
+    <h3 style="font-size:1.02rem; font-weight:800; margin-bottom:14px;" id="monthListTitle">이번 달 일정</h3>
+    <ul class="month-list" id="monthList"></ul>
+
+    <div class="calendar-block">
+      <div class="cal-header">
+        <div class="cal-title" id="calTitle"></div>
+        <div class="cal-nav">
+          <button id="prevMonth" aria-label="이전 달">‹</button>
+          <button id="todayBtn" aria-label="이번 달">●</button>
+          <button id="nextMonth" aria-label="다음 달">›</button>
+        </div>
+      </div>
+      <div class="cal-legend">
+        <span><span class="dot practice"></span>정기운동</span>
+        <span><span class="dot birthday"></span>생일</span>
+        <span><span class="dot match"></span>대회</span>
+        <span><span class="dot outing"></span>야유회·모임</span>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+  </section>
+
+  <!-- Mini game -->
+  <section id="minigame" class="container">
+    <div class="section-label">Mini Game</div>
+    <h2 class="section-title">미니게임</h2>
+    <p class="section-desc">운동 전 몸풀기용 미니게임 두 가지예요. PC에서는 키보드로, 모바일에서는 버튼으로 즐겨보세요.</p>
+
+    <!-- Game 1: Penalty kick -->
+    <div class="game-block" data-game="pk">
+      <h3 class="game-title">⚽ 페널티킥 챌린지</h3>
+      <p class="game-help"><strong>← →</strong> 로 조준점 이동, <strong>Space</strong>로 슛!</p>
+      <button class="ctrl-btn start-btn" id="pkStartBtn">🎮 게임 시작</button>
+
+      <div class="pk-stage" id="pkStage">
+        <div class="pk-goal">
+          <div class="pk-target" id="pkTarget"></div>
+          <div class="pk-keeper" id="pkKeeper">🧤</div>
+        </div>
+        <div class="pk-ball" id="pkBall">⚽</div>
+        <div class="pk-shooter" id="pkShooter">🏃‍♀️</div>
+        <div class="pk-result" id="pkResult"></div>
+      </div>
+
+      <div class="game-controls">
+        <button class="ctrl-btn" id="pkLeftBtn" aria-label="조준 왼쪽으로">◀</button>
+        <button class="ctrl-btn shoot-btn" id="pkShootBtn">SHOOT (Space)</button>
+        <button class="ctrl-btn" id="pkRightBtn" aria-label="조준 오른쪽으로">▶</button>
+      </div>
+
+      <div class="game-score">
+        <span>골 <strong id="goalCount">0</strong></span>
+        <span>슛 시도 <strong id="shotCount">0</strong></span>
+        <span>최고 연속골 <strong id="bestStreak">0</strong></span>
+      </div>
+      <button class="reset-link" id="resetGame">기록 초기화</button>
+    </div>
+
+    <!-- Game 2: Juggling -->
+    <div class="game-block" data-game="jg">
+      <h3 class="game-title">🐰 리프팅 챌린지</h3>
+      <p class="game-help">공이 발 근처에 왔을 때 <strong>Space</strong>(또는 아래 버튼)로 리프팅! 15초 버티면 성공.</p>
+      <button class="ctrl-btn start-btn" id="jgStartBtn">🎮 게임 시작</button>
+
+      <div class="jg-stage" id="jgStage">
+        <div class="jg-ball" id="jgBall">⚽</div>
+        <div class="jg-hitzone" id="jgHitzone"></div>
+        <div class="jg-animal" id="jgAnimal">🐰</div>
+        <div class="jg-result" id="jgResult"></div>
+      </div>
+
+      <div class="game-controls">
+        <button class="ctrl-btn lift-btn" id="jgLiftBtn">LIFT (Space)</button>
+      </div>
+
+      <div class="game-score">
+        <span>경과 시간 <strong id="jgTime">0.0</strong>초</span>
+        <span>연속 리프팅 <strong id="jgHits">0</strong></span>
+        <span>최고 기록 <strong id="jgBest">0.0</strong>초</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guestbook -->
+  <section id="guestbook" class="container">
+    <div class="section-label">Guestbook</div>
+    <h2 class="section-title">한마디 남기기</h2>
+    <p class="section-desc">팀원, 그리고 궁금해서 들러주신 분 모두 환영이에요. 응원 한마디 남겨주세요.</p>
+
+    <form class="guestbook-form" id="guestbookForm">
+      <div class="form-row">
+        <input type="text" id="msgName" placeholder="이름 또는 닉네임" maxlength="20" required>
+        <input type="text" id="msgShort" placeholder="한 줄 소개 (선택)" maxlength="30">
+      </div>
+      <textarea id="msgBody" placeholder="응원의 한마디를 남겨주세요 :)" maxlength="200" required></textarea>
+      <button type="submit" class="submit-btn">남기기</button>
+    </form>
+
+    <ul class="guestbook-list" id="guestbookList"></ul>
+    <p class="guestbook-note">* 남겨주신 글은 이 브라우저(기기)에 저장되며, 다른 방문자의 화면에는 별도로 표시되지 않아요.</p>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="container">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">연락처</h2>
+    <p class="section-desc">가입 문의, 게스트 참여, 매치 문의, 협업 제안 모두 편하게 연락 주세요.</p>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </span>
+        <div>
+          <div class="label">Instagram</div>
+          <div class="value">@mind.premium_fs</div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <span class="contact-icon">📍</span>
+        <div>
+          <div class="label">정기운동 장소</div>
+          <div class="value">충남대학교 풋살장 (변동가능)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">© 2026 마프리fs. All rights reserved.</div>
+</footer>
+
+<script>
+  /* ---------- Nav & theme ---------- */
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(link =>
+    link.addEventListener('click', () => navLinks.classList.remove('open'))
+  );
+
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('mapyrifs_theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (savedTheme) root.setAttribute('data-theme', savedTheme);
+  else if (prefersDark) root.setAttribute('data-theme', 'dark');
+
+  themeToggle.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('mapyrifs_theme', next);
+  });
+
+  /* ---------- Schedule data ---------- */
+  // 정기운동: 매주 월(1)
+  const REGULAR_DAYS = [1];
+
+  // 특별 일정 (생일 / 대회 / 야유회 등) — YYYY-MM-DD
+  const SPECIAL_EVENTS = {
+    '2026-01-15': [{ type: 'birthday', label: '민지 생일' }],
+    '2026-02-08': [{ type: 'match', label: '신년 친선경기' }],
+    '2026-03-21': [{ type: 'match', label: '춘계 리그 개막전' }],
+    '2026-04-11': [{ type: 'birthday', label: '하은 생일' }],
+    '2026-05-09': [{ type: 'outing', label: '봄맞이 야유회' }],
+    '2026-06-13': [{ type: 'birthday', label: '지우 생일' }],
+    '2026-07-18': [{ type: 'match', label: '하계 리그 4강전' }],
+    '2026-08-06': [{ type: 'birthday', label: '서연 생일' }],
+    '2026-08-22': [{ type: 'match', label: '구청장배 대회' }],
+    '2026-09-12': [{ type: 'birthday', label: '유나 생일' }],
+    '2026-10-24': [{ type: 'outing', label: '가을 단합 MT' }],
+    '2026-11-14': [{ type: 'birthday', label: '채영 생일' }],
+    '2026-12-05': [{ type: 'match', label: '연말 친선경기' }],
+    '2026-12-20': [{ type: 'outing', label: '송년회' }]
+  };
+
+  const TYPE_LABEL = { practice: '정기운동', birthday: '생일', match: '대회', outing: '야유회·모임' };
+  const WEEKDAY_KR = ['일', '월', '화', '수', '목', '금', '토'];
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function toKey(y, m, d) { return `${y}-${pad(m + 1)}-${pad(d)}`; }
+
+  function getEventsForDate(y, m, d) {
+    const dow = new Date(y, m, d).getDay();
+    const list = [];
+    if (REGULAR_DAYS.includes(dow)) list.push({ type: 'practice', label: '정기운동' });
+    const key = toKey(y, m, d);
+    if (SPECIAL_EVENTS[key]) list.push(...SPECIAL_EVENTS[key]);
+    return list;
+  }
+
+  /* ---------- Month list (this month) ---------- */
+  const today = new Date();
+  document.getElementById('monthListTitle').textContent =
+    `${today.getFullYear()}년 ${today.getMonth() + 1}월 일정`;
+
+  function renderMonthList() {
+    const y = today.getFullYear(), m = today.getMonth();
+    const daysInMonth = new Date(y, m + 1, 0).getDate();
+    const items = [];
+    for (let d = 1; d <= daysInMonth; d++) {
+      const evs = getEventsForDate(y, m, d);
+      evs.forEach(ev => items.push({ d, ...ev }));
+    }
+    const list = document.getElementById('monthList');
+    list.innerHTML = '';
+    if (items.length === 0) {
+      list.innerHTML = '<li class="empty-note">이번 달 등록된 일정이 없어요.</li>';
+      return;
+    }
+    items.forEach(item => {
+      const dow = WEEKDAY_KR[new Date(y, m, item.d).getDay()];
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <span class="date-chip"><span class="d">${item.d}</span><span class="w">${dow}</span></span>
+        <span>
+          <div class="event-label"><span class="dot ${item.type}"></span>${item.label}</div>
+          <div class="event-type">${TYPE_LABEL[item.type]}</div>
+        </span>`;
+      list.appendChild(li);
+    });
+  }
+  renderMonthList();
+
+  /* ---------- Calendar ---------- */
+  let calYear = today.getFullYear();
+  let calMonth = today.getMonth();
+
+  function renderCalendar() {
+    document.getElementById('calTitle').textContent = `${calYear}년 ${calMonth + 1}월`;
+    const grid = document.getElementById('calGrid');
+    grid.innerHTML = '';
+
+    WEEKDAY_KR.forEach(w => {
+      const el = document.createElement('div');
+      el.className = 'cal-dow';
+      el.textContent = w;
+      grid.appendChild(el);
+    });
+
+    const firstDow = new Date(calYear, calMonth, 1).getDay();
+    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+    for (let i = 0; i < firstDow; i++) {
+      const el = document.createElement('div');
+      el.className = 'cal-cell empty';
+      grid.appendChild(el);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const evs = getEventsForDate(calYear, calMonth, d);
+      const isToday = calYear === today.getFullYear() && calMonth === today.getMonth() && d === today.getDate();
+      const cell = document.createElement('div');
+      cell.className = 'cal-cell' + (isToday ? ' today' : '');
+      const dotsHtml = evs.map(e => `<span class="dot ${e.type}" title="${e.label}"></span>`).join('');
+      cell.innerHTML = `<span class="num">${d}</span><span class="dots">${dotsHtml}</span>`;
+      if (evs.length) cell.title = evs.map(e => e.label).join(', ');
+      grid.appendChild(cell);
+    }
+  }
+  renderCalendar();
+
+  document.getElementById('prevMonth').addEventListener('click', () => {
+    calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; }
+    renderCalendar();
+  });
+  document.getElementById('nextMonth').addEventListener('click', () => {
+    calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; }
+    renderCalendar();
+  });
+  document.getElementById('todayBtn').addEventListener('click', () => {
+    calYear = today.getFullYear(); calMonth = today.getMonth();
+    renderCalendar();
+  });
+
+  /* ---------- Active game detection (space bar is shared) ---------- */
+  let activeGame = 'pk';
+  const gameBlocks = document.querySelectorAll('.game-block[data-game]');
+  if ('IntersectionObserver' in window) {
+    const gameObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+          activeGame = entry.target.dataset.game;
+        }
+      });
+    }, { threshold: [0.5] });
+    gameBlocks.forEach(el => gameObserver.observe(el));
+  }
+
+  /* ---------- Game 1: Penalty kick ---------- */
+  const pkKeeper = document.getElementById('pkKeeper');
+  const pkTarget = document.getElementById('pkTarget');
+  const pkBall = document.getElementById('pkBall');
+  const pkShooter = document.getElementById('pkShooter');
+  const pkResult = document.getElementById('pkResult');
+  const goalCountEl = document.getElementById('goalCount');
+  const shotCountEl = document.getElementById('shotCount');
+  const bestStreakEl = document.getElementById('bestStreak');
+
+  const PK_MIN = 14, PK_MAX = 86, PK_STEP = 8, PK_TOLERANCE = 13, PK_SPEED = 46;
+
+  const GAME_KEY = 'mapyrifs_pk_stats';
+  let stats = JSON.parse(localStorage.getItem(GAME_KEY) || '{"goals":0,"shots":0,"best":0,"streak":0}');
+
+  function updateStatsUI() {
+    goalCountEl.textContent = stats.goals;
+    shotCountEl.textContent = stats.shots;
+    bestStreakEl.textContent = stats.best;
+  }
+  updateStatsUI();
+
+  let aimPos = 50;
+  let keeperPos = 50;
+  let keeperDir = 1;
+  let keeperLastTs = null;
+  let pkShooting = false;
+  let pkStarted = false;
+  let pkLoopStarted = false;
+
+  function keeperLoop(ts) {
+    if (keeperLastTs == null) keeperLastTs = ts;
+    const dt = (ts - keeperLastTs) / 1000;
+    keeperLastTs = ts;
+    keeperPos += keeperDir * PK_SPEED * dt;
+    if (keeperPos > PK_MAX) { keeperPos = PK_MAX; keeperDir = -1; }
+    if (keeperPos < PK_MIN) { keeperPos = PK_MIN; keeperDir = 1; }
+    pkKeeper.style.left = keeperPos + '%';
+    requestAnimationFrame(keeperLoop);
+  }
+
+  function updateTarget() { pkTarget.style.left = aimPos + '%'; }
+  updateTarget();
+
+  function moveAim(delta) {
+    if (!pkStarted) return;
+    aimPos = Math.min(PK_MAX, Math.max(PK_MIN, aimPos + delta));
+    updateTarget();
+  }
+
+  function startPk() {
+    pkStarted = true;
+    pkShooting = false;
+    keeperPos = 50;
+    keeperDir = 1;
+    keeperLastTs = null;
+    aimPos = 50;
+    updateTarget();
+    pkBall.style.transition = 'none';
+    pkBall.style.left = '50%';
+    pkBall.style.bottom = '20px';
+    pkShooter.classList.remove('kick');
+    pkResult.className = 'pk-result';
+    if (!pkLoopStarted) {
+      pkLoopStarted = true;
+      requestAnimationFrame(keeperLoop);
+    }
+  }
+
+  function showPkResult(success) {
+    pkResult.textContent = success ? 'SUCCESS!' : 'BLOCKED';
+    pkResult.className = 'pk-result show ' + (success ? 'success' : 'fail');
+    setTimeout(() => { pkResult.className = 'pk-result'; }, 900);
+  }
+
+  function shootPk() {
+    if (!pkStarted || pkShooting) return;
+    pkShooting = true;
+    pkShooter.classList.add('kick');
+
+    pkBall.style.transition = 'none';
+    pkBall.style.left = '50%';
+    pkBall.style.bottom = '20px';
+    void pkBall.offsetWidth;
+
+    const shotAim = aimPos;
+    // pk-ball's parent (.pk-stage) is wider than .pk-goal, so convert
+    // the aim percentage into stage-space for a visually aligned shot.
+    const ballStagePercent = 50 + (shotAim - 50) * 0.92;
+    requestAnimationFrame(() => {
+      pkBall.style.transition = 'left 0.45s ease, bottom 0.45s ease';
+      pkBall.style.left = ballStagePercent + '%';
+      pkBall.style.bottom = '186px';
+    });
+
+    setTimeout(() => {
+      const dist = Math.abs(shotAim - keeperPos);
+      stats.shots++;
+      if (dist > PK_TOLERANCE) {
+        stats.goals++;
+        stats.streak++;
+        stats.best = Math.max(stats.best, stats.streak);
+        showPkResult(true);
+      } else {
+        stats.streak = 0;
+        showPkResult(false);
+      }
+      localStorage.setItem(GAME_KEY, JSON.stringify(stats));
+      updateStatsUI();
+
+      setTimeout(() => {
+        pkBall.style.transition = 'none';
+        pkBall.style.left = '50%';
+        pkBall.style.bottom = '20px';
+        pkShooter.classList.remove('kick');
+        pkShooting = false;
+      }, 500);
+    }, 460);
+  }
+
+  document.getElementById('pkStartBtn').addEventListener('click', startPk);
+  document.getElementById('pkLeftBtn').addEventListener('click', () => moveAim(-PK_STEP));
+  document.getElementById('pkRightBtn').addEventListener('click', () => moveAim(PK_STEP));
+  document.getElementById('pkShootBtn').addEventListener('click', shootPk);
+
+  document.getElementById('resetGame').addEventListener('click', () => {
+    stats = { goals: 0, shots: 0, best: 0, streak: 0 };
+    localStorage.setItem(GAME_KEY, JSON.stringify(stats));
+    updateStatsUI();
+  });
+
+  /* ---------- Game 2: Juggling ---------- */
+  const jgBall = document.getElementById('jgBall');
+  const jgAnimal = document.getElementById('jgAnimal');
+  const jgResult = document.getElementById('jgResult');
+  const jgTimeEl = document.getElementById('jgTime');
+  const jgHitsEl = document.getElementById('jgHits');
+  const jgBestEl = document.getElementById('jgBest');
+  const jgLiftBtn = document.getElementById('jgLiftBtn');
+
+  const JG_KEY = 'mapyrifs_jg_best';
+  let jgBest = parseFloat(localStorage.getItem(JG_KEY) || '0');
+  jgBestEl.textContent = jgBest.toFixed(1);
+
+  const JG_GOAL = 15;
+  const JG_HIT_ZONE = 42;
+  const JG_MAX_Y = 170;
+  const JG_LIFT_VELOCITY = 480;
+  const JG_BASE_GRAVITY = 780;
+
+  let jgRunning = false;
+  let jgY = 0;
+  let jgVY = 0;
+  let jgGravity = JG_BASE_GRAVITY;
+  let jgElapsed = 0;
+  let jgHits = 0;
+  let jgLastTs = null;
+  let jgRAF = null;
+
+  function updateJgUI() {
+    jgTimeEl.textContent = jgElapsed.toFixed(1);
+    jgHitsEl.textContent = jgHits;
+    jgBestEl.textContent = jgBest.toFixed(1);
+  }
+
+  function renderJgBall() {
+    jgBall.style.bottom = (40 + jgY) + 'px';
+  }
+
+  function startJuggle() {
+    jgRunning = true;
+    jgY = 0;
+    jgVY = JG_LIFT_VELOCITY;
+    jgGravity = JG_BASE_GRAVITY;
+    jgElapsed = 0;
+    jgHits = 0;
+    jgLastTs = null;
+    jgResult.className = 'jg-result';
+    jgResult.innerHTML = '';
+    jgAnimal.className = 'jg-animal';
+    updateJgUI();
+    if (jgRAF) cancelAnimationFrame(jgRAF);
+    jgRAF = requestAnimationFrame(jgLoop);
+  }
+
+  function jgLoop(ts) {
+    if (!jgRunning) return;
+    if (jgLastTs == null) jgLastTs = ts;
+    const dt = Math.min((ts - jgLastTs) / 1000, 0.05);
+    jgLastTs = ts;
+    jgElapsed += dt;
+    jgGravity = JG_BASE_GRAVITY + jgElapsed * 55;
+
+    jgVY -= jgGravity * dt;
+    jgY += jgVY * dt;
+
+    if (jgY > JG_MAX_Y) { jgY = JG_MAX_Y; jgVY = 0; }
+
+    if (jgY <= 0) {
+      jgY = 0;
+      renderJgBall();
+      endJuggle(false);
+      return;
+    }
+
+    renderJgBall();
+    updateJgUI();
+
+    if (jgElapsed >= JG_GOAL) {
+      endJuggle(true);
+      return;
+    }
+    jgRAF = requestAnimationFrame(jgLoop);
+  }
+
+  function tryLift() {
+    if (!jgRunning) return;
+    if (jgY <= JG_HIT_ZONE && jgVY < 0) {
+      jgVY = JG_LIFT_VELOCITY;
+      jgHits++;
+      jgAnimal.className = 'jg-animal hit';
+      setTimeout(() => { if (jgRunning) jgAnimal.className = 'jg-animal'; }, 150);
+      updateJgUI();
+    }
+  }
+
+  function endJuggle(success) {
+    jgRunning = false;
+    if (jgRAF) cancelAnimationFrame(jgRAF);
+    jgBest = Math.max(jgBest, jgElapsed);
+    localStorage.setItem(JG_KEY, String(jgBest));
+    updateJgUI();
+
+    if (success) {
+      jgResult.innerHTML = '🎉 성공!<br><small>15초 리프팅 성공</small>';
+      jgResult.className = 'jg-result show success';
+      jgAnimal.className = 'jg-animal hit';
+    } else {
+      jgResult.innerHTML = '⚽ 실패!<br><small>공이 바닥에 떨어졌어요</small>';
+      jgResult.className = 'jg-result show fail';
+      jgAnimal.className = 'jg-animal sad';
+    }
+  }
+
+  function handleJgInput() {
+    if (!jgRunning) startJuggle();
+    else tryLift();
+  }
+
+  document.getElementById('jgStartBtn').addEventListener('click', startJuggle);
+  jgLiftBtn.addEventListener('click', tryLift);
+  renderJgBall();
+
+  /* ---------- Shared keyboard controls ---------- */
+  window.addEventListener('keydown', (e) => {
+    const tag = document.activeElement ? document.activeElement.tagName : '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+
+    if (e.code === 'Space') {
+      e.preventDefault();
+      if (activeGame === 'jg') handleJgInput();
+      else shootPk();
+    } else if (e.code === 'ArrowLeft') {
+      if (activeGame === 'pk') { e.preventDefault(); moveAim(-PK_STEP); }
+    } else if (e.code === 'ArrowRight') {
+      if (activeGame === 'pk') { e.preventDefault(); moveAim(PK_STEP); }
+    }
+  });
+
+  /* ---------- Guestbook ---------- */
+  const GUESTBOOK_KEY = 'mapyrifs_guestbook';
+  const guestbookForm = document.getElementById('guestbookForm');
+  const guestbookList = document.getElementById('guestbookList');
+
+  function loadMessages() {
+    return JSON.parse(localStorage.getItem(GUESTBOOK_KEY) || '[]');
+  }
+  function saveMessages(msgs) {
+    localStorage.setItem(GUESTBOOK_KEY, JSON.stringify(msgs));
+  }
+  function renderGuestbook() {
+    const msgs = loadMessages();
+    guestbookList.innerHTML = '';
+    if (msgs.length === 0) {
+      guestbookList.innerHTML = '<li class="empty-note">아직 남겨진 글이 없어요. 첫 번째 한마디를 남겨보세요!</li>';
+      return;
+    }
+    msgs.slice().reverse().forEach(msg => {
+      const li = document.createElement('li');
+      li.className = 'msg-card';
+      const nameDisplay = msg.short ? `${msg.name} · ${msg.short}` : msg.name;
+      li.innerHTML = `
+        <div class="msg-head">
+          <span class="msg-name">${escapeHtml(nameDisplay)}</span>
+          <span class="msg-date">${msg.date}</span>
+        </div>
+        <div class="msg-body">${escapeHtml(msg.body)}</div>`;
+      guestbookList.appendChild(li);
+    });
+  }
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+  renderGuestbook();
+
+  guestbookForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('msgName').value.trim();
+    const short = document.getElementById('msgShort').value.trim();
+    const body = document.getElementById('msgBody').value.trim();
+    if (!name || !body) return;
+    const msgs = loadMessages();
+    const now = new Date();
+    msgs.push({
+      name, short, body,
+      date: `${now.getFullYear()}.${pad(now.getMonth() + 1)}.${pad(now.getDate())}`
+    });
+    saveMessages(msgs);
+    guestbookForm.reset();
+    renderGuestbook();
+  });
+</script>
+
+</body>
+</html>
