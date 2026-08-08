@@ -212,6 +212,23 @@
   .info-list .label { color: var(--text-dim); }
   .info-list .value { font-weight: 700; text-align: right; }
 
+  .growth-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .growth-card:hover { border-color: var(--yellow); transform: translateY(-2px); }
+  .growth-card-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .growth-card h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 4px; }
+  .growth-card p { color: var(--text-dim); font-size: 0.88rem; }
+  .growth-card-arrow { margin-left: auto; font-size: 1.3rem; color: var(--text-dim); flex-shrink: 0; }
+
   /* ---------- Schedule ---------- */
   .month-list {
     list-style: none;
@@ -726,6 +743,15 @@
         <li><span class="label">활동 장소</span><span class="value">충남대학교 풋살장 (변동가능)</span></li>
       </ul>
     </div>
+
+    <a class="growth-card" href="https://mind-premier-league.github.io/growth-status/" target="_blank" rel="noopener">
+      <span class="growth-card-icon">📈</span>
+      <span>
+        <h3>올해의 성장일지</h3>
+        <p>회원들의 올해 운동 참여에 따른 개인 성장을 확인하며 동기부여하는 공간</p>
+      </span>
+      <span class="growth-card-arrow">→</span>
+    </a>
   </section>
 
   <!-- Schedule -->
