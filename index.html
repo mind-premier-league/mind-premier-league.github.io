@@ -84,16 +84,9 @@
   .emblem {
     width: 38px;
     height: 38px;
-    border-radius: 50%;
-    background: var(--navy);
-    color: var(--yellow);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 0.95rem;
+    object-fit: contain;
+    display: block;
     flex-shrink: 0;
-    border: 2px solid var(--yellow);
   }
 
   .brand-name { font-weight: 800; font-size: 1.05rem; letter-spacing: -0.01em; }
@@ -140,12 +133,8 @@
   .hero .emblem-lg {
     width: 84px; height: 84px;
     margin: 0 auto 20px;
-    border-radius: 50%;
-    background: var(--navy);
-    color: var(--yellow);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 1.9rem;
-    border: 3px solid var(--yellow);
+    object-fit: contain;
+    display: block;
   }
 
   .hero h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
@@ -368,6 +357,19 @@
   }
   .start-btn:hover { opacity: 0.9; }
 
+  .game-toolbar { display: flex; justify-content: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+  .game-toolbar .start-btn { margin-bottom: 0; }
+
+  .stop-btn {
+    background: var(--pink);
+    color: #fff;
+    border-color: var(--pink);
+    font-weight: 800;
+    padding: 11px 26px;
+  }
+  .stop-btn:hover { opacity: 0.9; }
+  .stop-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
   .game-score { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; font-size: 0.85rem; color: var(--text-dim); margin-top: 4px; }
   .game-score strong { color: var(--text); font-size: 1rem; }
 
@@ -381,13 +383,78 @@
     border: none;
   }
 
-  /* Penalty kick stage */
+  /* ---------- Bright cartoon shooting game theme ---------- */
+  .game-block[data-game="pk"] {
+    background: linear-gradient(180deg, #6ec6ff 0%, #a9e0ff 55%, #eafff2 100%);
+    border: 4px solid #ffffff;
+    box-shadow: 0 0 0 4px #4fb3f7, 0 10px 22px rgba(20, 55, 94, 0.18);
+    color: #14375e;
+    position: relative;
+    overflow: hidden;
+  }
+  .game-block[data-game="pk"]::before,
+  .game-block[data-game="pk"]::after {
+    content: '';
+    position: absolute;
+    background: #fff;
+    border-radius: 999px;
+    opacity: 0.85;
+    pointer-events: none;
+  }
+  .game-block[data-game="pk"]::before { top: 16px; left: 7%; width: 64px; height: 24px; }
+  .game-block[data-game="pk"]::after { top: 36px; right: 9%; width: 46px; height: 18px; }
+  .game-block[data-game="pk"] .game-title {
+    font-weight: 900;
+    color: #ff6a00;
+    text-shadow: 0 2px 0 #fff, 0 3px 6px rgba(20, 55, 94, 0.2);
+  }
+  .game-block[data-game="pk"] .game-help { color: #14375e; font-weight: 600; }
+  .game-block[data-game="pk"] .game-help strong { color: #ff6a00; }
+  .game-block[data-game="pk"] .ctrl-btn {
+    background: #ffffff;
+    border: 2px solid #bfe0ff;
+    color: #14375e;
+    font-weight: 800;
+    box-shadow: 0 4px 0 #bfe0ff;
+  }
+  .game-block[data-game="pk"] .ctrl-btn:hover { border-color: #4fb3f7; }
+  .game-block[data-game="pk"] .ctrl-btn:active:not(:disabled) { transform: translateY(3px); box-shadow: 0 1px 0 #bfe0ff; }
+  .game-block[data-game="pk"] .ctrl-btn:disabled { opacity: 0.4; }
+  .game-block[data-game="pk"] .shoot-btn {
+    background: linear-gradient(180deg, #ffe066, #ffb300);
+    border-color: #ffb300;
+    color: #7a3e00;
+    box-shadow: 0 5px 0 #cc8a00, 0 8px 14px rgba(255, 179, 0, 0.4);
+  }
+  .game-block[data-game="pk"] .start-btn {
+    background: linear-gradient(180deg, #7ee08a, #33b24d);
+    border-color: #33b24d;
+    color: #0b3d17;
+    box-shadow: 0 4px 0 #1f8033;
+  }
+  .game-block[data-game="pk"] .stop-btn {
+    background: linear-gradient(180deg, #ff9d9d, #ff5252);
+    border-color: #ff5252;
+    color: #5c0000;
+    box-shadow: 0 4px 0 #c62828;
+  }
+  .game-block[data-game="pk"] .game-score { color: #14375e; font-weight: 700; }
+  .game-block[data-game="pk"] .game-score strong { color: #ff6a00; }
+  .game-block[data-game="pk"] .reset-link { color: #4a6a8a; }
+  .game-block[data-game="pk"] .pk-result.success { color: #2ecc71; text-shadow: 0 2px 0 #fff, 0 0 12px rgba(46, 204, 113, 0.5); }
+  .game-block[data-game="pk"] .pk-result.fail { color: #ff5252; text-shadow: 0 2px 0 #fff, 0 0 12px rgba(255, 82, 82, 0.5); }
+
+  /* Shooting game stage */
   .pk-stage {
     position: relative;
     width: 100%;
     max-width: 340px;
-    height: 230px;
+    height: 360px;
     margin: 0 auto 18px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: repeating-linear-gradient(90deg, #8bd17c 0px, #8bd17c 20px, #79c76a 20px, #79c76a 40px);
+    border-bottom: 6px solid #4caf50;
   }
 
   .pk-goal {
@@ -396,46 +463,34 @@
     left: 50%;
     transform: translateX(-50%);
     width: 92%;
-    height: 118px;
-    border: 4px solid var(--navy);
+    height: 70px;
+    border: 5px solid #ffffff;
     border-bottom: none;
-    border-radius: 6px 6px 0 0;
-    background: repeating-linear-gradient(0deg, transparent, transparent 14px, var(--border) 14px, var(--border) 15px),
-                repeating-linear-gradient(90deg, transparent, transparent 14px, var(--border) 14px, var(--border) 15px);
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 0 0 3px #4fb3f7, 0 0 22px rgba(79, 179, 247, 0.55), inset 0 0 18px rgba(79, 179, 247, 0.2);
+    background: rgba(255, 255, 255, 0.18);
     overflow: visible;
   }
-  html[data-theme="dark"] .pk-goal { border-color: var(--text); }
+
+  .pk-wall {
+    position: absolute;
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0;
+    font-size: 2.1rem;
+    white-space: nowrap;
+    will-change: left;
+  }
 
   .pk-keeper {
     position: absolute;
     bottom: 4px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 2rem;
+    font-size: 2.1rem;
     will-change: left;
-  }
-
-  .pk-target {
-    position: absolute;
-    top: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 14px;
-    height: 14px;
-  }
-  .pk-target::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border: 2px solid var(--yellow);
-    border-radius: 50%;
-  }
-  .pk-target::after {
-    content: '';
-    position: absolute;
-    inset: 4px;
-    border-radius: 50%;
-    background: var(--yellow);
   }
 
   .pk-shooter {
@@ -444,7 +499,8 @@
     left: 50%;
     transform: translateX(-50%);
     font-size: 2.3rem;
-    transition: transform 0.15s ease;
+    transition: left 0.1s linear, transform 0.15s ease;
+    will-change: left;
   }
   .pk-shooter.kick { transform: translateX(-50%) rotate(-18deg) scale(1.1); }
 
@@ -480,75 +536,6 @@
     65% { opacity: 0.35; }
     80% { opacity: 1; }
     100% { opacity: 0; transform: scale(1); }
-  }
-
-  /* Juggling stage */
-  .jg-stage {
-    position: relative;
-    width: 100%;
-    max-width: 300px;
-    height: 220px;
-    margin: 0 auto 18px;
-    border-bottom: 3px solid var(--border);
-    overflow: hidden;
-  }
-
-  .jg-ball {
-    position: absolute;
-    left: 50%;
-    bottom: 40px;
-    transform: translateX(-50%);
-    font-size: 1.7rem;
-    will-change: bottom;
-  }
-
-  .jg-hitzone {
-    position: absolute;
-    left: 50%;
-    bottom: 32px;
-    transform: translateX(-50%);
-    width: 66px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--yellow-soft);
-  }
-
-  .jg-animal {
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    font-size: 2.6rem;
-    transition: transform 0.15s ease;
-  }
-  .jg-animal.hit { transform: translateX(-50%) scale(1.15) rotate(-6deg); }
-  .jg-animal.sad { transform: translateX(-50%) scale(0.95) rotate(6deg); }
-
-  .jg-result {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    font-size: 1.3rem;
-    font-weight: 900;
-    text-align: center;
-    background: var(--surface);
-    opacity: 0;
-    pointer-events: none;
-    border-radius: 8px;
-  }
-  .jg-result.show { opacity: 1; animation: jgPop 0.4s ease; }
-  .jg-result.success { color: var(--green); }
-  .jg-result.fail { color: var(--pink); }
-  .jg-result small { font-size: 0.75rem; font-weight: 600; color: var(--text-dim); }
-
-  @keyframes jgPop {
-    0% { transform: scale(0.7); }
-    60% { transform: scale(1.08); }
-    100% { transform: scale(1); }
   }
 
   /* ---------- Guestbook ---------- */
@@ -662,9 +649,9 @@
     .contact-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
     .cal-cell { font-size: 0.68rem; padding: 4px; }
-    .pk-stage { height: 200px; }
-    .pk-goal { height: 96px; }
-    .jg-stage { height: 190px; }
+    .pk-stage { height: 300px; }
+    .pk-goal { height: 58px; }
+    .pk-wall { top: 112px; }
   }
 </style>
 </head>
@@ -673,7 +660,7 @@
 <header>
   <nav>
     <div class="brand">
-      <span class="emblem">MP</span>
+      <img class="emblem" src="logo.png" alt="마프리fs 로고">
       <span>
         <span class="brand-name">마프리fs</span>
         <span class="brand-sub">여성 풋살 동호회</span>
@@ -701,7 +688,7 @@
 <main>
   <!-- Hero -->
   <section class="hero">
-    <div class="emblem-lg">MP</div>
+    <img class="emblem-lg" src="logo.png" alt="마프리fs 로고">
     <h1>마프리fs</h1>
     <p class="tagline">풋살화 신고 모이면 다 친구!<br>즐겁게 뛰고, 서로 따뜻하게 응원하는 여성 풋살 동호회입니다.</p>
     <div class="hero-facts">
@@ -720,7 +707,7 @@
     <div class="team-grid">
       <div class="team-card">
         <div class="badge-row">
-          <span class="emblem">MP</span>
+          <img class="emblem" src="logo.png" alt="마프리fs 로고">
           <div>
             <h3>마프리fs</h3>
             <span class="founded">2020.06.10 창단 · 대전광역시</span>
@@ -773,28 +760,31 @@
   <section id="minigame" class="container">
     <div class="section-label">Mini Game</div>
     <h2 class="section-title">미니게임</h2>
-    <p class="section-desc">운동 전 몸풀기용 미니게임 두 가지예요. PC에서는 키보드로, 모바일에서는 버튼으로 즐겨보세요.</p>
+    <p class="section-desc">운동 전 몸풀기용 미니게임이에요. PC에서는 키보드로, 모바일에서는 버튼으로 즐겨보세요.</p>
 
-    <!-- Game 1: Penalty kick -->
+    <!-- Game 1: Shooting challenge -->
     <div class="game-block" data-game="pk">
-      <h3 class="game-title">⚽ 페널티킥 챌린지</h3>
-      <p class="game-help"><strong>← →</strong> 로 조준점 이동, <strong>Space</strong>로 슛!</p>
-      <button class="ctrl-btn start-btn" id="pkStartBtn">🎮 게임 시작</button>
+      <h3 class="game-title">⚽ 슈팅 챌린지</h3>
+      <p class="game-help"><strong>← →</strong> 로 키커 이동, <strong>Space</strong>로 슛!</p>
+      <div class="game-toolbar">
+        <button class="ctrl-btn start-btn" id="pkStartBtn">🎮 게임 시작</button>
+        <button class="ctrl-btn stop-btn" id="pkStopBtn" disabled>⏹ 게임 중지</button>
+      </div>
 
       <div class="pk-stage" id="pkStage">
         <div class="pk-goal">
-          <div class="pk-target" id="pkTarget"></div>
-          <div class="pk-keeper" id="pkKeeper">🧤</div>
+          <div class="pk-keeper" id="pkKeeper">🤾‍♀️</div>
         </div>
+        <div class="pk-wall" id="pkWall"><span>🧍‍♀️</span><span>🧍‍♀️</span><span>🧍‍♀️</span></div>
         <div class="pk-ball" id="pkBall">⚽</div>
         <div class="pk-shooter" id="pkShooter">🏃‍♀️</div>
         <div class="pk-result" id="pkResult"></div>
       </div>
 
       <div class="game-controls">
-        <button class="ctrl-btn" id="pkLeftBtn" aria-label="조준 왼쪽으로">◀</button>
-        <button class="ctrl-btn shoot-btn" id="pkShootBtn">SHOOT (Space)</button>
-        <button class="ctrl-btn" id="pkRightBtn" aria-label="조준 오른쪽으로">▶</button>
+        <button class="ctrl-btn" id="pkLeftBtn" aria-label="키커 왼쪽으로 이동" disabled>◀</button>
+        <button class="ctrl-btn shoot-btn" id="pkShootBtn" disabled>SHOOT (Space)</button>
+        <button class="ctrl-btn" id="pkRightBtn" aria-label="키커 오른쪽으로 이동" disabled>▶</button>
       </div>
 
       <div class="game-score">
@@ -803,30 +793,6 @@
         <span>최고 연속골 <strong id="bestStreak">0</strong></span>
       </div>
       <button class="reset-link" id="resetGame">기록 초기화</button>
-    </div>
-
-    <!-- Game 2: Juggling -->
-    <div class="game-block" data-game="jg">
-      <h3 class="game-title">🐰 리프팅 챌린지</h3>
-      <p class="game-help">공이 발 근처에 왔을 때 <strong>Space</strong>(또는 아래 버튼)로 리프팅! 15초 버티면 성공.</p>
-      <button class="ctrl-btn start-btn" id="jgStartBtn">🎮 게임 시작</button>
-
-      <div class="jg-stage" id="jgStage">
-        <div class="jg-ball" id="jgBall">⚽</div>
-        <div class="jg-hitzone" id="jgHitzone"></div>
-        <div class="jg-animal" id="jgAnimal">🐰</div>
-        <div class="jg-result" id="jgResult"></div>
-      </div>
-
-      <div class="game-controls">
-        <button class="ctrl-btn lift-btn" id="jgLiftBtn">LIFT (Space)</button>
-      </div>
-
-      <div class="game-score">
-        <span>경과 시간 <strong id="jgTime">0.0</strong>초</span>
-        <span>연속 리프팅 <strong id="jgHits">0</strong></span>
-        <span>최고 기록 <strong id="jgBest">0.0</strong>초</span>
-      </div>
     </div>
   </section>
 
@@ -1027,31 +993,24 @@
     renderCalendar();
   });
 
-  /* ---------- Active game detection (space bar is shared) ---------- */
-  let activeGame = 'pk';
-  const gameBlocks = document.querySelectorAll('.game-block[data-game]');
-  if ('IntersectionObserver' in window) {
-    const gameObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-          activeGame = entry.target.dataset.game;
-        }
-      });
-    }, { threshold: [0.5] });
-    gameBlocks.forEach(el => gameObserver.observe(el));
-  }
-
-  /* ---------- Game 1: Penalty kick ---------- */
+  /* ---------- Game 1: Shooting challenge ---------- */
+  const pkStage = document.getElementById('pkStage');
   const pkKeeper = document.getElementById('pkKeeper');
-  const pkTarget = document.getElementById('pkTarget');
+  const pkWall = document.getElementById('pkWall');
   const pkBall = document.getElementById('pkBall');
   const pkShooter = document.getElementById('pkShooter');
   const pkResult = document.getElementById('pkResult');
+  const pkStartBtn = document.getElementById('pkStartBtn');
+  const pkStopBtn = document.getElementById('pkStopBtn');
+  const pkLeftBtn = document.getElementById('pkLeftBtn');
+  const pkRightBtn = document.getElementById('pkRightBtn');
+  const pkShootBtn = document.getElementById('pkShootBtn');
   const goalCountEl = document.getElementById('goalCount');
   const shotCountEl = document.getElementById('shotCount');
   const bestStreakEl = document.getElementById('bestStreak');
 
-  const PK_MIN = 14, PK_MAX = 86, PK_STEP = 8, PK_TOLERANCE = 13, PK_SPEED = 46;
+  const PK_MIN = 14, PK_MAX = 86, PK_TOLERANCE = 13, PK_SPEED = 46, SHOOTER_SPEED = 90;
+  const WALL_SPEED = PK_SPEED * 1.5, WALL_TOLERANCE = 30;
 
   const GAME_KEY = 'mapyrifs_pk_stats';
   let stats = JSON.parse(localStorage.getItem(GAME_KEY) || '{"goals":0,"shots":0,"best":0,"streak":0}');
@@ -1063,15 +1022,19 @@
   }
   updateStatsUI();
 
-  let aimPos = 50;
+  let shooterPos = 50;
   let keeperPos = 50;
   let keeperDir = 1;
+  let wallPos = 50;
+  let wallDir = -1;
   let keeperLastTs = null;
   let pkShooting = false;
-  let pkStarted = false;
+  let pkRunning = false;
+  let pkEverStarted = false;
   let pkLoopStarted = false;
 
   function keeperLoop(ts) {
+    if (!pkRunning) { keeperLastTs = null; requestAnimationFrame(keeperLoop); return; }
     if (keeperLastTs == null) keeperLastTs = ts;
     const dt = (ts - keeperLastTs) / 1000;
     keeperLastTs = ts;
@@ -1079,35 +1042,86 @@
     if (keeperPos > PK_MAX) { keeperPos = PK_MAX; keeperDir = -1; }
     if (keeperPos < PK_MIN) { keeperPos = PK_MIN; keeperDir = 1; }
     pkKeeper.style.left = keeperPos + '%';
+
+    // Defensive wall covers the same left-right range as the keeper, but moves
+    // on its own independent bounce cycle at 1.5x the keeper's speed.
+    wallPos += wallDir * WALL_SPEED * dt;
+    if (wallPos > PK_MAX) { wallPos = PK_MAX; wallDir = -1; }
+    if (wallPos < PK_MIN) { wallPos = PK_MIN; wallDir = 1; }
+    pkWall.style.left = wallPos + '%';
+
     requestAnimationFrame(keeperLoop);
   }
 
-  function updateTarget() { pkTarget.style.left = aimPos + '%'; }
-  updateTarget();
+  function updateShooterPos() {
+    pkShooter.style.left = shooterPos + '%';
+    if (!pkShooting) {
+      pkBall.style.transition = 'none';
+      pkBall.style.left = shooterPos + '%';
+    }
+  }
+  updateShooterPos();
 
-  function moveAim(delta) {
-    if (!pkStarted) return;
-    aimPos = Math.min(PK_MAX, Math.max(PK_MIN, aimPos + delta));
-    updateTarget();
+  // Held-down movement: keyboard (keydown/keyup) and touch/mouse (pointerdown/up)
+  // both just flip these flags, and one rAF loop moves the shooter while held.
+  let leftHeld = false;
+  let rightHeld = false;
+  let shooterLastTs = null;
+
+  function shooterMoveLoop(ts) {
+    const dir = leftHeld === rightHeld ? 0 : (leftHeld ? -1 : 1);
+    if (pkRunning && dir !== 0) {
+      if (shooterLastTs == null) shooterLastTs = ts;
+      const dt = (ts - shooterLastTs) / 1000;
+      shooterLastTs = ts;
+      shooterPos = Math.min(PK_MAX, Math.max(PK_MIN, shooterPos + dir * SHOOTER_SPEED * dt));
+      updateShooterPos();
+    } else {
+      shooterLastTs = null;
+    }
+    requestAnimationFrame(shooterMoveLoop);
+  }
+  requestAnimationFrame(shooterMoveLoop);
+
+  function updateControlsUI() {
+    pkStartBtn.textContent = pkEverStarted ? '🔄 다시 시작' : '🎮 게임 시작';
+    pkStopBtn.disabled = !pkRunning;
+    pkLeftBtn.disabled = !pkRunning;
+    pkRightBtn.disabled = !pkRunning;
+    pkShootBtn.disabled = !pkRunning;
   }
 
   function startPk() {
-    pkStarted = true;
+    pkEverStarted = true;
+    pkRunning = true;
     pkShooting = false;
+    leftHeld = false;
+    rightHeld = false;
     keeperPos = 50;
     keeperDir = 1;
     keeperLastTs = null;
-    aimPos = 50;
-    updateTarget();
+    wallPos = 50;
+    wallDir = -1;
+    pkWall.style.left = '50%';
+    shooterPos = 50;
+    updateShooterPos();
     pkBall.style.transition = 'none';
     pkBall.style.left = '50%';
     pkBall.style.bottom = '20px';
     pkShooter.classList.remove('kick');
     pkResult.className = 'pk-result';
+    updateControlsUI();
     if (!pkLoopStarted) {
       pkLoopStarted = true;
       requestAnimationFrame(keeperLoop);
     }
+  }
+
+  function stopPk() {
+    pkRunning = false;
+    leftHeld = false;
+    rightHeld = false;
+    updateControlsUI();
   }
 
   function showPkResult(success) {
@@ -1117,29 +1131,33 @@
   }
 
   function shootPk() {
-    if (!pkStarted || pkShooting) return;
+    if (!pkRunning || pkShooting) return;
     pkShooting = true;
     pkShooter.classList.add('kick');
 
     pkBall.style.transition = 'none';
-    pkBall.style.left = '50%';
+    pkBall.style.left = shooterPos + '%';
     pkBall.style.bottom = '20px';
     void pkBall.offsetWidth;
 
-    const shotAim = aimPos;
+    const shotPos = shooterPos;
     // pk-ball's parent (.pk-stage) is wider than .pk-goal, so convert
-    // the aim percentage into stage-space for a visually aligned shot.
-    const ballStagePercent = 50 + (shotAim - 50) * 0.92;
+    // the shooter percentage into stage-space for a visually aligned shot.
+    const ballStagePercent = 50 + (shotPos - 50) * 0.92;
+    // Landing spot is a fraction of the stage's actual (breakpoint-dependent) height,
+    // so the ball still lands inside the goal on both desktop and mobile sizes.
+    const ballLandingBottom = pkStage.getBoundingClientRect().height * 0.85;
     requestAnimationFrame(() => {
       pkBall.style.transition = 'left 0.45s ease, bottom 0.45s ease';
       pkBall.style.left = ballStagePercent + '%';
-      pkBall.style.bottom = '186px';
+      pkBall.style.bottom = ballLandingBottom + 'px';
     });
 
     setTimeout(() => {
-      const dist = Math.abs(shotAim - keeperPos);
+      const blockedByKeeper = Math.abs(shotPos - keeperPos) <= PK_TOLERANCE;
+      const blockedByWall = Math.abs(shotPos - wallPos) <= WALL_TOLERANCE;
       stats.shots++;
-      if (dist > PK_TOLERANCE) {
+      if (!blockedByKeeper && !blockedByWall) {
         stats.goals++;
         stats.streak++;
         stats.best = Math.max(stats.best, stats.streak);
@@ -1152,19 +1170,24 @@
       updateStatsUI();
 
       setTimeout(() => {
-        pkBall.style.transition = 'none';
-        pkBall.style.left = '50%';
-        pkBall.style.bottom = '20px';
         pkShooter.classList.remove('kick');
         pkShooting = false;
+        updateShooterPos();
       }, 500);
     }, 460);
   }
 
-  document.getElementById('pkStartBtn').addEventListener('click', startPk);
-  document.getElementById('pkLeftBtn').addEventListener('click', () => moveAim(-PK_STEP));
-  document.getElementById('pkRightBtn').addEventListener('click', () => moveAim(PK_STEP));
-  document.getElementById('pkShootBtn').addEventListener('click', shootPk);
+  pkStartBtn.addEventListener('click', startPk);
+  pkStopBtn.addEventListener('click', stopPk);
+  pkShootBtn.addEventListener('click', shootPk);
+
+  // Hold-to-move: press and hold (mouse or touch, via Pointer Events) to keep moving.
+  pkLeftBtn.addEventListener('pointerdown', () => { leftHeld = true; });
+  pkRightBtn.addEventListener('pointerdown', () => { rightHeld = true; });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(evt => {
+    pkLeftBtn.addEventListener(evt, () => { leftHeld = false; });
+    pkRightBtn.addEventListener(evt, () => { rightHeld = false; });
+  });
 
   document.getElementById('resetGame').addEventListener('click', () => {
     stats = { goals: 0, shots: 0, best: 0, streak: 0 };
@@ -1172,142 +1195,26 @@
     updateStatsUI();
   });
 
-  /* ---------- Game 2: Juggling ---------- */
-  const jgBall = document.getElementById('jgBall');
-  const jgAnimal = document.getElementById('jgAnimal');
-  const jgResult = document.getElementById('jgResult');
-  const jgTimeEl = document.getElementById('jgTime');
-  const jgHitsEl = document.getElementById('jgHits');
-  const jgBestEl = document.getElementById('jgBest');
-  const jgLiftBtn = document.getElementById('jgLiftBtn');
-
-  const JG_KEY = 'mapyrifs_jg_best';
-  let jgBest = parseFloat(localStorage.getItem(JG_KEY) || '0');
-  jgBestEl.textContent = jgBest.toFixed(1);
-
-  const JG_GOAL = 15;
-  const JG_HIT_ZONE = 42;
-  const JG_MAX_Y = 170;
-  const JG_LIFT_VELOCITY = 480;
-  const JG_BASE_GRAVITY = 780;
-
-  let jgRunning = false;
-  let jgY = 0;
-  let jgVY = 0;
-  let jgGravity = JG_BASE_GRAVITY;
-  let jgElapsed = 0;
-  let jgHits = 0;
-  let jgLastTs = null;
-  let jgRAF = null;
-
-  function updateJgUI() {
-    jgTimeEl.textContent = jgElapsed.toFixed(1);
-    jgHitsEl.textContent = jgHits;
-    jgBestEl.textContent = jgBest.toFixed(1);
-  }
-
-  function renderJgBall() {
-    jgBall.style.bottom = (40 + jgY) + 'px';
-  }
-
-  function startJuggle() {
-    jgRunning = true;
-    jgY = 0;
-    jgVY = JG_LIFT_VELOCITY;
-    jgGravity = JG_BASE_GRAVITY;
-    jgElapsed = 0;
-    jgHits = 0;
-    jgLastTs = null;
-    jgResult.className = 'jg-result';
-    jgResult.innerHTML = '';
-    jgAnimal.className = 'jg-animal';
-    updateJgUI();
-    if (jgRAF) cancelAnimationFrame(jgRAF);
-    jgRAF = requestAnimationFrame(jgLoop);
-  }
-
-  function jgLoop(ts) {
-    if (!jgRunning) return;
-    if (jgLastTs == null) jgLastTs = ts;
-    const dt = Math.min((ts - jgLastTs) / 1000, 0.05);
-    jgLastTs = ts;
-    jgElapsed += dt;
-    jgGravity = JG_BASE_GRAVITY + jgElapsed * 55;
-
-    jgVY -= jgGravity * dt;
-    jgY += jgVY * dt;
-
-    if (jgY > JG_MAX_Y) { jgY = JG_MAX_Y; jgVY = 0; }
-
-    if (jgY <= 0) {
-      jgY = 0;
-      renderJgBall();
-      endJuggle(false);
-      return;
-    }
-
-    renderJgBall();
-    updateJgUI();
-
-    if (jgElapsed >= JG_GOAL) {
-      endJuggle(true);
-      return;
-    }
-    jgRAF = requestAnimationFrame(jgLoop);
-  }
-
-  function tryLift() {
-    if (!jgRunning) return;
-    if (jgY <= JG_HIT_ZONE && jgVY < 0) {
-      jgVY = JG_LIFT_VELOCITY;
-      jgHits++;
-      jgAnimal.className = 'jg-animal hit';
-      setTimeout(() => { if (jgRunning) jgAnimal.className = 'jg-animal'; }, 150);
-      updateJgUI();
-    }
-  }
-
-  function endJuggle(success) {
-    jgRunning = false;
-    if (jgRAF) cancelAnimationFrame(jgRAF);
-    jgBest = Math.max(jgBest, jgElapsed);
-    localStorage.setItem(JG_KEY, String(jgBest));
-    updateJgUI();
-
-    if (success) {
-      jgResult.innerHTML = '🎉 성공!<br><small>15초 리프팅 성공</small>';
-      jgResult.className = 'jg-result show success';
-      jgAnimal.className = 'jg-animal hit';
-    } else {
-      jgResult.innerHTML = '⚽ 실패!<br><small>공이 바닥에 떨어졌어요</small>';
-      jgResult.className = 'jg-result show fail';
-      jgAnimal.className = 'jg-animal sad';
-    }
-  }
-
-  function handleJgInput() {
-    if (!jgRunning) startJuggle();
-    else tryLift();
-  }
-
-  document.getElementById('jgStartBtn').addEventListener('click', startJuggle);
-  jgLiftBtn.addEventListener('click', tryLift);
-  renderJgBall();
-
-  /* ---------- Shared keyboard controls ---------- */
+  /* ---------- Keyboard controls ---------- */
   window.addEventListener('keydown', (e) => {
     const tag = document.activeElement ? document.activeElement.tagName : '';
     if (tag === 'INPUT' || tag === 'TEXTAREA') return;
 
     if (e.code === 'Space') {
       e.preventDefault();
-      if (activeGame === 'jg') handleJgInput();
-      else shootPk();
+      shootPk();
     } else if (e.code === 'ArrowLeft') {
-      if (activeGame === 'pk') { e.preventDefault(); moveAim(-PK_STEP); }
+      e.preventDefault();
+      leftHeld = true;
     } else if (e.code === 'ArrowRight') {
-      if (activeGame === 'pk') { e.preventDefault(); moveAim(PK_STEP); }
+      e.preventDefault();
+      rightHeld = true;
     }
+  });
+
+  window.addEventListener('keyup', (e) => {
+    if (e.code === 'ArrowLeft') leftHeld = false;
+    else if (e.code === 'ArrowRight') rightHeld = false;
   });
 
   /* ---------- Guestbook ---------- */
