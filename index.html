@@ -172,8 +172,13 @@
   html[data-theme="dark"] .fact-pill strong { color: var(--yellow); }
 
   /* ---------- Sections ---------- */
-  section { padding: 60px 0; border-bottom: 1px solid var(--border); }
+  section { padding: 180px 0 90px; border-bottom: 1px solid var(--border); }
   section:last-of-type { border-bottom: none; }
+
+  #team, #schedule, #minigame, #guestbook, #contact { margin-top: 2cm; }
+
+  /* extra space above the divider line at the bottom of each section */
+  .hero, #team, #schedule, #minigame, #guestbook { padding-bottom: calc(90px + 1cm); }
 
   .section-label {
     font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
@@ -652,7 +657,7 @@
       gap: 14px;
     }
 
-    section { padding: 44px 0; }
+    section { padding: 100px 0 48px; }
     .team-grid { grid-template-columns: 1fr; }
     .contact-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
